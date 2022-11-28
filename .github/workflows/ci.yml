@@ -34,9 +34,14 @@ jobs:
           npm run build
 
       - name: Prepare Laravel Application
+        env:
+          HYPIXEL_API_KEY: ${{ secret.HYPIXEL_API_KEY }}
         run: |
           cp .env.ci .env
           php artisan key:generate
+          php artisan migrate
+          php artisan db:seed --class=ProfileTableSeeder
+          php artisan mock:api
 
       - name: Run Testsuite
         run: vendor/bin/phpunit tests/

@@ -1,43 +1,35 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
 
 use App\Http\Controllers\APICallLoggerController;
 use App\Http\Controllers\SkillController;
-use App\Models\APICallLogger;
 use App\Models\Coin;
 use App\Models\Collection;
 use App\Models\Profile;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
-class FetchAndStoreProfile implements ShouldQueue
+class CreateMockData extends Command
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected $profile;
-
     /**
-     * Create a new job instance.
+     * The name and signature of the console command.
      *
-     * @return void
+     * @var string
      */
-    public function __construct($uuid)
-    {
-        $this->profile = $uuid;
-    }
+    protected $signature = 'mock:api';
 
     /**
-     * Execute the job.
+     * The console command description.
      *
-     * @return void
+     * @var string
+     */
+    protected $description = 'Create mock data in database';
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
      */
     public function handle()
     {
@@ -98,5 +90,7 @@ class FetchAndStoreProfile implements ShouldQueue
 
             }
         }
+
+        return Command::SUCCESS;
     }
 }
