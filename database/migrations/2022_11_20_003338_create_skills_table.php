@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->uuid('profile');
             $table->uuid('player');
-            $table->string('name');
+            $table->string('skill');
             $table->double('xp');
         });
     }
