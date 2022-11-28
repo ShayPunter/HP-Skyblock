@@ -36,12 +36,12 @@ class CreateMockData extends Command
         // Send request for Skyblock data for the profile
         $request = Http::withHeaders([
             'API-Key' => env('HYPIXEL_API_KEY')
-        ])->get('https://api.hypixel.net/skyblock/profile?profile=' . $this->profile);
+        ])->get('https://api.hypixel.net/skyblock/profile?profile=0b764e48721f436d84535d1719a19518');
         new APICallLoggerController('scheduled');
 
 
         // Fetch the profile from the database & decouple player uuids
-        $dbProfile = Profile::get()->where('uuid', '=', $this->profile)->first();
+        $dbProfile = Profile::get()->where('uuid', '=', '0b764e48721f436d84535d1719a19518')->first();
         $playerUuids = explode(',', $dbProfile->players);
 
         // Decode the request
@@ -53,7 +53,7 @@ class CreateMockData extends Command
             // Check and store skills in the database
             if (isset($json->profile->members->$player->coin_purse)) {
                 $coin = new Coin();
-                $coin->profile_uuid = $this->profile;
+                $coin->profile_uuid = '0b764e48721f436d84535d1719a19518';
                 $coin->player_uuid = $player;
                 $coin->coins = $json->profile->members->$player->coin_purse;
                 $coin->save();
@@ -64,7 +64,7 @@ class CreateMockData extends Command
 
                 foreach ($json->profile->members->$player->collection as $collection => $value) {
                     $dbCollection = new Collection();
-                    $dbCollection->profile_uuid = $this->profile;
+                    $dbCollection->profile_uuid = '0b764e48721f436d84535d1719a19518';
                     $dbCollection->player_uuid = $player;
                     $dbCollection->name = $collection;
                     $dbCollection->amount = $value;
@@ -76,17 +76,17 @@ class CreateMockData extends Command
             if (isset($json->profile->members->$player->experience_skill_runecrafting)) {
 
                 $skill = new SkillController();
-                $skill->store($this->profile, $player, "runecrafting", $json->profile->members->$player->experience_skill_runecrafting);
-                $skill->store($this->profile, $player, "mining", $json->profile->members->$player->experience_skill_mining);
-                $skill->store($this->profile, $player, "alchemy", $json->profile->members->$player->experience_skill_alchemy);
-                $skill->store($this->profile, $player, "taming", $json->profile->members->$player->experience_skill_taming);
-                $skill->store($this->profile, $player, "combat", $json->profile->members->$player->experience_skill_combat);
-                $skill->store($this->profile, $player, "farming", $json->profile->members->$player->experience_skill_farming);
-                $skill->store($this->profile, $player, "enchanting", $json->profile->members->$player->experience_skill_enchanting);
-                $skill->store($this->profile, $player, "social", $json->profile->members->$player->experience_skill_social2);
-                $skill->store($this->profile, $player, "fishing", $json->profile->members->$player->experience_skill_fishing);
-                $skill->store($this->profile, $player, "foraging", $json->profile->members->$player->experience_skill_foraging);
-                $skill->store($this->profile, $player, "carpentry", $json->profile->members->$player->experience_skill_carpentry);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "runecrafting", $json->profile->members->$player->experience_skill_runecrafting);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "mining", $json->profile->members->$player->experience_skill_mining);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "alchemy", $json->profile->members->$player->experience_skill_alchemy);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "taming", $json->profile->members->$player->experience_skill_taming);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "combat", $json->profile->members->$player->experience_skill_combat);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "farming", $json->profile->members->$player->experience_skill_farming);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "enchanting", $json->profile->members->$player->experience_skill_enchanting);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "social", $json->profile->members->$player->experience_skill_social2);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "fishing", $json->profile->members->$player->experience_skill_fishing);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "foraging", $json->profile->members->$player->experience_skill_foraging);
+                $skill->store('0b764e48721f436d84535d1719a19518', $player, "carpentry", $json->profile->members->$player->experience_skill_carpentry);
 
             }
         }
