@@ -35,7 +35,7 @@ jobs:
 
       - name: Prepare Laravel Application
         env:
-          HYPIXEL_API_KEY: ${{ secret.HYPIXEL_API_KEY }}
+          HYPIXEL_API_KEY: ${{ secrets.HYPIXEL_API_KEY }}
         run: |
           cp .env.ci .env
           php artisan key:generate
