@@ -53,8 +53,8 @@ class CreateMockData extends Command
             // Check and store skills in the database
             if (isset($json->profile->members->$player->coin_purse)) {
                 $coin = new Coin();
-                $coin->profile_uuid = '0b764e48721f436d84535d1719a19518';
-                $coin->player_uuid = $player;
+                $coin->profile = '0b764e48721f436d84535d1719a19518';
+                $coin->player = $player;
                 $coin->coins = $json->profile->members->$player->coin_purse;
                 $coin->save();
             }
@@ -64,8 +64,8 @@ class CreateMockData extends Command
 
                 foreach ($json->profile->members->$player->collection as $collection => $value) {
                     $dbCollection = new Collection();
-                    $dbCollection->profile_uuid = '0b764e48721f436d84535d1719a19518';
-                    $dbCollection->player_uuid = $player;
+                    $dbCollection->profile = '0b764e48721f436d84535d1719a19518';
+                    $dbCollection->player = $player;
                     $dbCollection->name = $collection;
                     $dbCollection->amount = $value;
                     $dbCollection->save();
