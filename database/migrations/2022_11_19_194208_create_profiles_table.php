@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('players');
             $table->boolean('tracked');
-            $table->timestamp('last_polled');
+            $table->float('last_polled');
         });
     }
 

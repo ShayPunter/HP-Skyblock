@@ -19,7 +19,7 @@ class ProfileTableSeeder extends Seeder
         $profile->uuid = '0b764e48721f436d84535d1719a19518';
         $profile->players = '6e5848b5bdd14874819f51ac0921f440,30e4e490f8424ec986304c597030adc8';
         $profile->tracked = true;
-        $profile->last_polled = microtime(true);
+        $profile->last_polled = round(microtime(true) * 1000);
         $profile->save();
     }
 }
