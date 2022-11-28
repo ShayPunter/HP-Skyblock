@@ -21,8 +21,8 @@ class GraphController extends Controller
             'item' => 'string|required'
         ]);
 
-        $collection = Collection::where([['profile_uuid', '=', $request->profile],
-            ['player_uuid', '=', $request->uuid],
+        $collection = Collection::where([['profile', '=', $request->profile],
+            ['player', '=', $request->uuid],
             ['name', '=', $request->item],
             ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]])->get();
 
@@ -49,8 +49,8 @@ class GraphController extends Controller
             'profile' => 'string|required',
         ]);
 
-        $collection = Collection::where([['profile_uuid', '=', $request->profile],
-            ['player_uuid', '=', $request->uuid],
+        $collection = Collection::where([['profile', '=', $request->profile],
+            ['player', '=', $request->uuid],
             ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]])->get();
 
         $xais = array();
