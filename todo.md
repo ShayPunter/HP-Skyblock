@@ -11,3 +11,6 @@
 - Create user page which provides them with a summary of their Hypixel SB Profile
 - Create a user graph page which shows historical data such as coins, collected items, stats, etc.
 - Create a landing page which has links to featured profiles across the site
+
+### Testing
+- Build unit tests for creating new values in the database
