@@ -18,9 +18,9 @@ class SkillController extends Controller
      */
     public function store($profile, $player, $skill, $xp) {
             $skillNew = new Skill();
-            $skillNew->profile_uuid = $profile;
-            $skillNew->player_uuid = $player;
-            $skillNew->name = $skill;
+            $skillNew->profile = $profile;
+            $skillNew->player = $player;
+            $skillNew->skill = $skill;
             $skillNew->xp = $xp;
             $skillNew->save();
     }

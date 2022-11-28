@@ -17,8 +17,8 @@ class CollectionController extends Controller
      */
     public function index($profile, $player) {
         $collection = Collection::where([
-            ['profile_uuid', '=', $profile],
-            ['player_uuid', '=', $player],
+            ['profile', '=', $profile],
+            ['player', '=', $player],
             ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]
         ])->get();
 
