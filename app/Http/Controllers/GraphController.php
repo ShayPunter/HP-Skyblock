@@ -11,23 +11,24 @@ class GraphController extends Controller
     /**
      * Return Collection JSON data for Apexcharts.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function collection_graph_api(Request $request) {
+    public function collection_graph_api(Request $request)
+    {
         $validated = $request->validate([
             'uuid' => 'string|required',
             'profile' => 'string|required',
-            'item' => 'string|required'
+            'item' => 'string|required',
         ]);
 
         $collection = Collection::where([['profile', '=', $request->profile],
             ['player', '=', $request->uuid],
             ['name', '=', $request->item],
-            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]])->get();
+            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()], ])->get();
 
-        $xais = array();
-        $data = array();
+        $xais = [];
+        $data = [];
 
         foreach ($collection as $collectionItem) {
             $xais[] = $collectionItem->created_at;
@@ -40,10 +41,11 @@ class GraphController extends Controller
     /**
      * Return Coins JSON data for Apexcharts.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function coins_graph_api(Request $request) {
+    public function coins_graph_api(Request $request)
+    {
         $validated = $request->validate([
             'uuid' => 'string|required',
             'profile' => 'string|required',
@@ -51,10 +53,10 @@ class GraphController extends Controller
 
         $collection = Collection::where([['profile', '=', $request->profile],
             ['player', '=', $request->uuid],
-            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]])->get();
+            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()], ])->get();
 
-        $xais = array();
-        $data = array();
+        $xais = [];
+        $data = [];
 
         foreach ($collection as $collectionItem) {
             $xais[] = $collectionItem->created_at;

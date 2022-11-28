@@ -7,7 +7,6 @@ use Carbon\Carbon;
 
 class CollectionController extends Controller
 {
-
     /**
      * Get all player collections progress from a profile within the past 24 hours.
      *
@@ -15,14 +14,14 @@ class CollectionController extends Controller
      * @param $player
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($profile, $player) {
+    public function index($profile, $player)
+    {
         $collection = Collection::where([
             ['profile', '=', $profile],
             ['player', '=', $player],
-            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()]
+            ['created_at', '>', Carbon::now()->subHours(24)->toDateTimeString()],
         ])->get();
 
         return response()->json($collection);
     }
-
 }

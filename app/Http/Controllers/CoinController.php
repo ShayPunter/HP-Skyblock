@@ -6,7 +6,6 @@ use App\Models\Coin;
 
 class CoinController extends Controller
 {
-
     /**
      * Stores the coins in the database
      *

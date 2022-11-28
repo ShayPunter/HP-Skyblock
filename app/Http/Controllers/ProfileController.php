@@ -6,7 +6,6 @@ use App\Models\Profile;
 
 class ProfileController extends Controller
 {
-
     /**
      * Store the skyblock profile.
      *
@@ -16,7 +15,8 @@ class ProfileController extends Controller
      * @param $last_polled
      * @return void
      */
-    public function store($uuid, $players, $tracked, $last_polled) {
+    public function store($uuid, $players, $tracked, $last_polled)
+    {
         $profile = new Profile();
         $profile->uuid = $uuid;
         $profile->players = $players;
