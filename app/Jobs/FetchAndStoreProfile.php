@@ -56,8 +56,8 @@ class FetchAndStoreProfile implements ShouldQueue
             // Check and store skills in the database
             if (isset($json->profile->members->$player->coin_purse)) {
                 $coin = new Coin();
-                $coin->profile_uuid = $this->profile;
-                $coin->player_uuid = $player;
+                $coin->profile = $this->profile;
+                $coin->player = $player;
                 $coin->coins = $json->profile->members->$player->coin_purse;
                 $coin->save();
             }
@@ -66,8 +66,8 @@ class FetchAndStoreProfile implements ShouldQueue
             if (isset($json->profile->members->$player->collection)) {
                 foreach ($json->profile->members->$player->collection as $collection => $value) {
                     $dbCollection = new Collection();
-                    $dbCollection->profile_uuid = $this->profile;
-                    $dbCollection->player_uuid = $player;
+                    $dbCollection->profile = $this->profile;
+                    $dbCollection->player = $player;
                     $dbCollection->name = $collection;
                     $dbCollection->amount = $value;
                     $dbCollection->save();
