@@ -82,6 +82,10 @@ class FetchAndStoreProfile implements ShouldQueue
                 $skill->store($this->profile, $player, 'foraging', $json->profile->members->$player->experience_skill_foraging);
                 $skill->store($this->profile, $player, 'carpentry', $json->profile->members->$player->experience_skill_carpentry);
             }
+
+            // Update last_polled
+            $dbProfile->last_polled = microtime(true);
+            $dbProfile->save();
         }
     }
 }
