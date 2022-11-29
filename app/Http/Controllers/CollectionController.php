@@ -24,4 +24,25 @@ class CollectionController extends Controller
 
         return response()->json($collection);
     }
+
+    /**
+     * Stores a players profile collection in the database
+     *
+     * @param $profile
+     * @param $player
+     * @param $collection
+     * @param $value
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store($profile, $player, $collection, $value)
+    {
+        $dbCollection = new Collection();
+        $dbCollection->profile = $profile;
+        $dbCollection->player = $player;
+        $dbCollection->name = $collection;
+        $dbCollection->amount = $value;
+        $dbCollection->save();
+
+        return response()->json(['success' => true]);
+    }
 }
