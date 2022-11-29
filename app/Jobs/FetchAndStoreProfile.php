@@ -38,15 +38,22 @@ class FetchAndStoreProfile implements ShouldQueue
      */
     public function handle()
     {
+        // Fetch the profile from the database & decouple player uuids
+        $dbProfile = Profile::get()->where('uuid', '=', $this->profile)->first();
+        $playerUuids = explode(',', $dbProfile->players);
+
+        // Check if profile has been polled within the last 5 minutes
+        $fiveMinutesAgo = date('Y-m-d H:i:s', strtotime('-5 minutes'));
+        $inMilliseconds = 1000 * $fiveMinutesAgo;
+        if ($dbProfile > $inMilliseconds) {
+            return;
+        }
+
         // Send request for Skyblock data for the profile
         $request = Http::withHeaders([
             'API-Key' => env('HYPIXEL_API_KEY'),
         ])->get('https://api.hypixel.net/skyblock/profile?profile='.$this->profile);
         new APICallLoggerController('scheduled');
-
-        // Fetch the profile from the database & decouple player uuids
-        $dbProfile = Profile::get()->where('uuid', '=', $this->profile)->first();
-        $playerUuids = explode(',', $dbProfile->players);
 
         // Decode the request
         $json = json_decode($request, false, 2147483647);
