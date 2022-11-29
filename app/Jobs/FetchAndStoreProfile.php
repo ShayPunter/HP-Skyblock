@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Http\Controllers\APICallLoggerController;
 use App\Http\Controllers\CoinController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\SkillController;
 use App\Models\Collection;
 use App\Models\Profile;
@@ -61,12 +62,8 @@ class FetchAndStoreProfile implements ShouldQueue
             // Check the collection is set & store in db if it is
             if (isset($json->profile->members->$player->collection)) {
                 foreach ($json->profile->members->$player->collection as $collection => $value) {
-                    $dbCollection = new Collection();
-                    $dbCollection->profile = $this->profile;
-                    $dbCollection->player = $player;
-                    $dbCollection->name = $collection;
-                    $dbCollection->amount = $value;
-                    $dbCollection->save();
+                    $collectionController = new CollectionController();
+                    $collectionController->store($this->profile, $player, $collection, $value);
                 }
             }
 
