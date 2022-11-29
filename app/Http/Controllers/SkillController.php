@@ -13,7 +13,7 @@ class SkillController extends Controller
      * @param $player
      * @param $skill
      * @param $xp
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store($profile, $player, $skill, $xp)
     {
@@ -23,5 +23,7 @@ class SkillController extends Controller
         $skillNew->skill = $skill;
         $skillNew->xp = $xp;
         $skillNew->save();
+
+        return response()->json(['success' => true]);
     }
 }

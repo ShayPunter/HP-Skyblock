@@ -12,7 +12,7 @@ class CoinController extends Controller
      * @param $profile
      * @param $player
      * @param $coin
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store($profile, $player, $coin)
     {
@@ -21,5 +21,7 @@ class CoinController extends Controller
         $coins->player = $player;
         $coins->coins = $coin;
         $coins->save();
+
+        return response()->json(['success' => true]);
     }
 }

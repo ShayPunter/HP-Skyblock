@@ -13,7 +13,7 @@ class ProfileController extends Controller
      * @param $players
      * @param $tracked
      * @param $last_polled
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store($uuid, $players, $tracked, $last_polled)
     {
@@ -23,5 +23,7 @@ class ProfileController extends Controller
         $profile->tracked = $tracked;
         $profile->last_polled = $last_polled;
         $profile->save();
+
+        return response()->json(['success' => true]);
     }
 }
