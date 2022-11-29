@@ -3,8 +3,8 @@
 namespace App\Jobs;
 
 use App\Http\Controllers\APICallLoggerController;
+use App\Http\Controllers\CoinController;
 use App\Http\Controllers\SkillController;
-use App\Models\Coin;
 use App\Models\Collection;
 use App\Models\Profile;
 use Illuminate\Bus\Queueable;
@@ -12,7 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class FetchAndStoreProfile implements ShouldQueue
@@ -55,11 +54,8 @@ class FetchAndStoreProfile implements ShouldQueue
         foreach ($playerUuids as $player) {
             // Check and store skills in the database
             if (isset($json->profile->members->$player->coin_purse)) {
-                $coin = new Coin();
-                $coin->profile = $this->profile;
-                $coin->player = $player;
-                $coin->coins = $json->profile->members->$player->coin_purse;
-                $coin->save();
+                $coin = new CoinController();
+                $coin->store($this->profile, $player, $json->profile->members->$player->coin_purse);
             }
 
             // Check the collection is set & store in db if it is
